@@ -14,26 +14,25 @@ public class Server {
     public Server() {
         System.out.println("正在启动服务端");
         try {
-            serverSocket=new ServerSocket(8088);
+            serverSocket = new ServerSocket(8088);
         } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println("服务端启动完毕");
     }
-    public void start(){
+
+    public void start() {
         try {
-            System.out.println("等待客户端连接");
-            Socket socket=serverSocket.accept();
-            System.out.println("一个客户端连接了");
-            InputStream in =socket.getInputStream();
-            InputStreamReader isr=new InputStreamReader(in, StandardCharsets.UTF_8);
-            BufferedReader br=new BufferedReader(isr);
-            String line;
-            while ((line=br.readLine())!=null){
-                System.out.println("客户说"+line);
+
+            while (true) {
+
+                System.out.println("等待客户端连接");
+                Socket socket = serverSocket.accept();
+                System.out.println("一个客户端连接了");
+                Runnable handle=new ClientHandle(socket);
+                Thread t=new Thread(handle);
+                t.start();
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,7 +40,33 @@ public class Server {
     }
 
     public static void main(String[] args) {
-        Server server=new Server();
+        Server server = new Server();
         server.start();
+    }
+    private class ClientHandle implements Runnable{
+        private Socket socket;
+        private String host;
+
+        public ClientHandle(Socket socket) {
+            this.socket = socket;
+            host=socket.getInetAddress().getHostAddress();
+        }
+
+        @Override
+        public void run() {
+            try {
+                InputStream in = socket.getInputStream();
+                InputStreamReader isr = new InputStreamReader(in, StandardCharsets.UTF_8);
+                BufferedReader br = new BufferedReader(isr);
+                String line;
+                while ((line = br.readLine()) != null) {
+                    System.out.println(host+"说" + line);
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }
