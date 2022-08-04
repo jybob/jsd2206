@@ -10,7 +10,7 @@ Scanner scan=new Scanner(System.in);
     public Client() {
         try {
             System.out.println("正在连接服务端");
-            socket=new Socket("176.5.14.99",8088);
+            socket=new Socket("176.5.14.139",8088);
             System.out.println("与服务端建立连接");
         } catch (IOException e) {
             e.printStackTrace();
