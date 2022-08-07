@@ -1,4 +1,4 @@
-package homework.day01.day08;
+package day08;
 
 import java.util.Arrays;
 
@@ -36,12 +36,9 @@ public class Test1 {
 		p.setX(6);
 		arr2 = Arrays.copyOf(arr2, arr2.length-1);
 		arr2[2].setX(8);
-		System.out.println(Arrays.toString(arr2));
 		arr2 = new Point[]{new Point(2,2),p};
-		System.out.println(Arrays.toString(arr2));
-
 		arr2[arr2.length-1].setX(12);
-		System.out.println(Arrays.toString(arr2));
+
 
 	}
 }
