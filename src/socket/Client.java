@@ -23,7 +23,7 @@ public class Client{
          */
         try {
             System.out.println("正在连接服务端...");
-            socket = new Socket("176.5.14.100", 8088);
+            socket = new Socket("176.5.14.96", 8089);
             System.out.println("与服务端建立连接!");
         } catch (IOException e) {
             e.printStackTrace();

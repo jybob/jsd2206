@@ -2,16 +2,18 @@ package collection;
 
 import java.util.Objects;
 
+/**
+ * 使用当前实例作为集合元素测试集合相关操作
+ */
 public class Point {
     private int x;
     private int y;
 
+    public Point(){}
+
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
-    }
-
-    public Point() {
     }
 
     public int getX() {
@@ -32,10 +34,8 @@ public class Point {
 
     @Override
     public String toString() {
-        return "(" +
-                 + x +
-                ", " + y +
-                ')';
+        //(1,2)
+        return "(" + x +"," + y +')';
     }
 
     @Override
@@ -51,3 +51,9 @@ public class Point {
         return Objects.hash(x, y);
     }
 }
+
+
+
+
+
+

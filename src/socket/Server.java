@@ -4,7 +4,9 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * 聊天室服务端
@@ -16,8 +18,8 @@ public class Server {
         2:监听该端口,一旦一个客户端连接时,就会返回一个Socket实例与其通讯.(accept()方法的作用)
      */
     private ServerSocket serverSocket;
-    private PrintWriter[] allOut = {};
-
+//    private PrintWriter[] allOut = {};
+private Collection<PrintWriter> allOut=new ArrayList<>();
     public Server() {
         try {
             System.out.println("正在启动服务端...");
@@ -85,10 +87,11 @@ public class Server {
                 BufferedWriter bw = new BufferedWriter(osw);
                 pw = new PrintWriter(bw, true);
                 synchronized (Server.this) {
-                    allOut = Arrays.copyOf(allOut, allOut.length + 1);
-                    allOut[allOut.length - 1] = pw;
+//                    allOut = Arrays.copyOf(allOut, allOut.length + 1);
+//                    allOut[allOut.length - 1] = pw;
+                    allOut.add(pw);
                 }
-                System.out.println(host + "上线了，当前在线人数:" + allOut.length);
+                System.out.println(host + "上线了，当前在线人数:" + allOut.size());
 
                 String line;
                 while ((line = br.readLine()) != null) {
@@ -98,17 +101,20 @@ public class Server {
                 e.printStackTrace();
             } finally {
                 synchronized (Server.this) {
-                    for (int i = 0; i < allOut.length; i++) {
-                        if (pw == allOut[i]) {
+//                    for (int i = 0; i < allOut.length; i++) {
+//                        if (pw == allOut[i]) {
+//
+//                            allOut[i] = allOut[allOut.length - 1];
+//                            allOut = Arrays.copyOf(allOut, allOut.length - 1);
+//
+//                            break;
+//                        }
+//                    }
 
-                            allOut[i] = allOut[allOut.length - 1];
-                            allOut = Arrays.copyOf(allOut, allOut.length - 1);
+                        allOut.remove(pw);
 
-                            break;
-                        }
-                    }
                 }
-                sendMessage(host + "下线了,当前在线人数为" + allOut.length);
+                sendMessage(host + "下线了,当前在线人数为" + allOut.size());
                 try {
                     socket.close();
                 } catch (IOException e) {
@@ -122,10 +128,10 @@ public class Server {
     private void sendMessage(String message) {
         System.out.println(message);
         synchronized (Server.this) {
-            for (int i = 0; i < allOut.length; i++) {
-                allOut[i].println(message);
-
+            for (PrintWriter o : allOut) {
+                o.println(message);
             }
+
         }
     }
 }
