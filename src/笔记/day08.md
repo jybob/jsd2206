@@ -787,7 +787,7 @@ java.util.Collection是所有集合的顶级接口.Collection下面有多种实�
 的结果.为true就认为是重复元素.
 
 ```java
-package collection;
+package collection1;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -810,20 +810,20 @@ public class CollectionDemo {
             返回当前集合的元素个数
          */
         int size = c.size();
-        System.out.println("size:"+size);
+        System.out.println("size:" + size);
         /*
             boolean isEmpty()
             判断当前集合是否为空集(不含有任何元素)
          */
         boolean isEmpty = c.isEmpty();
-        System.out.println("是否为空集:"+isEmpty);
+        System.out.println("是否为空集:" + isEmpty);
         /*
            清空集合
          */
         c.clear();
         System.out.println(c);
-        System.out.println("size:"+c.size());//0
-        System.out.println("是否为空集:"+c.isEmpty());
+        System.out.println("size:" + c.size());//0
+        System.out.println("是否为空集:" + c.isEmpty());
 
 
     }
@@ -835,9 +835,8 @@ public class CollectionDemo {
 #### 集合与元素equals方法相关的方法
 
 ```java
-package collection;
+package collection1;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -848,25 +847,25 @@ public class CollectionDemo2 {
     public static void main(String[] args) {
 //        Collection c = new ArrayList();
         Collection c = new HashSet();
-        c.add(new Point(1,2));
-        c.add(new Point(3,4));
-        c.add(new Point(5,6));
-        c.add(new Point(7,8));
-        c.add(new Point(1,2));
+        c.add(new Point(1, 2));
+        c.add(new Point(3, 4));
+        c.add(new Point(5, 6));
+        c.add(new Point(7, 8));
+        c.add(new Point(1, 2));
         /*
             集合重写了Object的toString方法，输出的格式为:
             [元素1.toString(), 元素2.toString(), ....]
          */
         System.out.println(c);
 
-        Point p = new Point(1,2);
+        Point p = new Point(1, 2);
         /*
             boolean contains(Object o)
             判断当前集合是否包含给定元素，这里判断的依据是给定元素是否与集合
             现有元素存在equals比较为true的情况。
          */
         boolean contains = c.contains(p);
-        System.out.println("包含:"+contains);
+        System.out.println("包含:" + contains);
         /*
             remove用来从集合中删除给定元素，删除的也是与集合中equals比较
             为true的元素。注意，对于可以存放重复元素的集合而言，只删除一次。
@@ -882,7 +881,7 @@ public class CollectionDemo2 {
 集合只能存放引用类型元素,并且存放的是元素的引用
 
 ```java
-package collection;
+package collection1;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -893,14 +892,14 @@ import java.util.Collection;
 public class CollectionDemo3 {
     public static void main(String[] args) {
         Collection c = new ArrayList();
-        Point p = new Point(1,2);
+        Point p = new Point(1, 2);
         c.add(p);
-        System.out.println("p:"+p);//p:(1,2)
-        System.out.println("c:"+c);//c:[(1,2)]
+        System.out.println("p:" + p);//p:(1,2)
+        System.out.println("c:" + c);//c:[(1,2)]
 
         p.setX(2);
-        System.out.println("p:"+p);//p:(2,2)
-        System.out.println("c:"+c);//c:[(2,2)]
+        System.out.println("p:" + p);//p:(2,2)
+        System.out.println("c:" + c);//c:[(2,2)]
 
     }
 }
